@@ -1,0 +1,57 @@
+# Open Terminal
+super+Return
+	xfce4-terminal
+
+# Program launcher
+super+r
+	rofi -show drun
+
+super+b
+	firefox
+
+# Reload configs
+super+R
+	pkill -USR1 -x sxhkd && bspc wm -r && pkill -USR1 -x picom && polybar -r
+
+# alternate between tiled and monocle
+super+m
+	bspc desktop -l next
+
+# close
+super + w
+	bspc node -c
+
+# set window state
+super + {t,shift + t,s}
+	bspc node -t {tiled,pseudo_tiled,floating}
+
+super + f
+	bspc node -t ~fullscreen && polybar-msg cmd toggle
+
+# swap current node with biggest window
+super+g
+	bspc node -s biggest.window
+
+# focus node in direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# hide nodes
+super + Escape
+	while bspc node any.hidden.window -g hidden=off; do false; done \
+	&& while bspc node 'any.!hidden.window' -g hidden=on; do :; done
+	bspc query -N -n .window | while IFS= read -r wid
+		do bspc node "$wid" -g hidden
+	done
