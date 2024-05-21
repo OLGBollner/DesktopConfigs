@@ -1,7 +1,9 @@
-*
+* 
 !autostart/*
 !bspwm/*
 !conky/*
 !polybar/*
 !rofi/*
 !neofetch/*
+!sxhkd/*
+!picom.conf
