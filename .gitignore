@@ -1,0 +1,6 @@
+*
+!autostart/*
+!bspwm/*
+!conky/*
+!polybar/*
+!rofi/*
