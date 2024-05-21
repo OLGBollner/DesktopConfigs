@@ -4,16 +4,45 @@ xsetroot -cursor_name left_ptr
 
 # AutoStart
 pgrep -x sxhkd > /dev/null || sxhkd &
-pgrep -x panel > /dev/null || panel &
 pgrep -x picom > /dev/null || picom &
 $HOME/.config/polybar/launch.sh
 
 feh --bg-fill /home/oskar/Pictures/Wallpaper.jpg
 
 # Configs
-bspc monitor -d I II III IV V
+if type "xrandr"; then
+    for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do        
+        OPTIONS=$(xrandr --query | grep $m | cut -d" " -f1,3,4 | cut -d"+" -f1)
+        RESP=$( echo ${OPTIONS} | cut -d" " -f3)
+        RES=$( echo ${OPTIONS} | cut -d" " -f2)
+        if [ "$RES" = "primary" ]; then
+            xrandr --output $m --primary --mode $RESP --rotate normal
+        else
+            xrandr --output $m --mode $RES --rotate normal
+        fi
+        bspc monitor $m -d V VI VII VIII
+    done
+#else
+#    echo "\ndet funkar inte\n"
+#    xrandr --output HDMI-2 --off
+#    while bspc node @V: --kill; do
+#        :
+#    done
+#    while bspc node @VI: --kill; do
+#        :
+#    done
+#    while bspc node @VII: --kill; do
+#        :
+#    done
+#    while bspc node @VIII: --kill; do
+#        :
+#    done
+#
+#    bspc desktop -r V VI VII VIII
+#    bspc monitor HDMI-2 -r
+fi
 
-bspc config border_width         2
+bspc config border_width         2 
 bspc config window_gap          12
 
 bspc config split_ratio          0.52

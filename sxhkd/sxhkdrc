@@ -21,6 +21,12 @@ super+m
 super + w
 	bspc node -c
 
+# print screen
+Print
+    sleep 0.2; \
+    scrot -s $HOME/'Pictures/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'; \
+    notify-send --urgency=low --hint=string:x-dunst-stack-tag:scrot 'Screenshot taken' 'Selection'
+
 # set window state
 super + {t,shift + t,s}
 	bspc node -t {tiled,pseudo_tiled,floating}
@@ -55,3 +61,9 @@ super + Escape
 	bspc query -N -n .window | while IFS= read -r wid
 		do bspc node "$wid" -g hidden
 	done
+
+# move node to new screen
+super + shift + {Left,Down,Up,Right}
+	dir={west,south,north,east}; \
+	bspc node -s "$dir.local" --follow \
+	    || bspc node -m "$dir" --follow
