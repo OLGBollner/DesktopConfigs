@@ -67,3 +67,8 @@ super + shift + {Left,Down,Up,Right}
 	dir={west,south,north,east}; \
 	bspc node -s "$dir.local" --follow \
 	    || bspc node -m "$dir" --follow
+
+# swap to next workspace
+super + {_,shift} + Tab
+    dir={next,prev}; \
+    bspc desktop -f "$dir".local

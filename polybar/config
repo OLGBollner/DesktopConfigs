@@ -1,15 +1,5 @@
 ;==========================================================
 ;
-; THIS IS AN EXAMPLE CONFIGURATION FILE!
-; IT IS NOT SUPPOSED TO WORK OUT OF THE BOX SINCE IS CONTAINS
-; SETTINGS THAT ARE SPECIFIC TO THE MACHINE WHICH WAS USED
-; TO GENERATE IT.
-; Please refer to the web documentation hosted at:
-; https://github.com/polybar/polybar#configuration
-; and
-; https://github.com/polybar/polybar/wiki/Configuration
-; if you want to automatically generate one for you.
-;
 ;==========================================================
 ;
 ;
@@ -28,90 +18,79 @@
 ;
 ;==========================================================
 
+[settings]
+screenchange-reload = true
+pseudo-transparency = false
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
 [colors]
-;background = ${xrdb:color0:#222}
-background = #222
-background-alt = #444
-;foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
+background = #0222
+background-alt = #f556
+inactive = #8c71a6
+
+foreground = #ffff
 foreground-alt = #555
+
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
 
-[bar/example]
+;========================= BARS ===========================
+
+[bar/root]
+font-0 = "UbuntuMono Nerd Font:size=9"
+
 monitor = ${env:MONITOR:}
 width = 100%
-height = 27
-;offset-x = 1%
-;offset-y = 1%
-radius-top = 0.0
-radius = 6.0
-fixed-center = false
+height = 20
+override-redirect = false
+radius = 10.0
+fixed-center = true
+cursor-click = pointer
+cursor-scroll = ns-resize
+border-size = 0.2%
 
-background = ${colors.background}
-foreground = ${colors.foreground}
-
+wm-restack = bspwm
 line-size = 3
 line-color = #f00
 
-border-top-size = 0
-border-size = 2
-border-color = #00000000
+background = ${colors.background-alt}
+foreground = ${colors.foreground}
 
-padding-left = 0
-padding-right = 2
+[bar/left]
+monitor = ${env:MONITOR:}
+width = 11%
+inherit = bar/root
+modules-center = powermenu A filesystem
+offset-x = 0%
 
-module-margin-left = 1
-module-margin-right = 2
+[bar/center]
+monitor = ${env:MONITOR:}
+width = 12%
+inherit = bar/root
+modules-center = bspwm
+offset-x = 43.5%
 
-font-0 = fixed:pixelsize=12;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
+[bar/right]
+monitor = ${env:MONITOR:}
+width = 32%
+inherit = bar/root
+modules-left = A pulseaudio
+modules-center = wlan A battery A temperature A date
+offset-x = 68%
 
-modules-left = bspwm
-modules-center = tray
-modules-right = filesystem pulseaudio wlan battery temperature date powermenu
+;======================== MODULES ==========================
 
-enable-ipc = true
-
-;separator = |
-
-;wm-restack = bspwm
-
-override-redirect = false
-
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
-
-cursor-click = pointer
-cursor-scroll = ns-resize
-
-[module/tray]
-type = internal/tray
-
-format-margin = 5
-tray-spacing = 5
+[module/A]
+type = custom/text
+content = "  "
 
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:30:...%
-
-[module/xkeyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
-
-label-layout = %layout%
-label-layout-underline = ${colors.secondary}
-
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
 
 [module/filesystem]
 type = internal/fs
@@ -119,31 +98,34 @@ interval = 25
 
 mount-0 = /
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-mounted = " %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%% "
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
 [module/bspwm]
 type = internal/bspwm
 
-label-focused = %index%
+label-focused = ▪
 label-focused-background = ${colors.background-alt}
 label-focused-underline= ${colors.primary}
 label-focused-padding = 2
 
-label-occupied = %index%
+label-occupied = ▫
+label-occupied-background = ${colors.inactive}
 label-occupied-padding = 2
 
-label-urgent = %index%!
+label-urgent = ▫!
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
-label-empty = %index%
+label-empty = ▫
 label-empty-foreground = ${colors.foreground-alt}
+label-empty-background = ${colors.inactive}
 label-empty-padding = 2
 
 ; Separator in between workspaces
 label-separator = |
+label-separator-background = ${colors.inactive}
 
 [module/mpd]
 type = internal/mpd
@@ -183,7 +165,6 @@ format-connected = <ramp-signal> <label-connected>
 format-connected-underline = #9f78e1
 label-connected = %essid%
 
-;format-disconnected =
 format-disconnected = <label-disconnected>
 format-disconnected-underline = ${self.format-connected-underline}
 label-disconnected =  ❌%ifname% disconnected
@@ -211,8 +192,8 @@ date-alt = " %Y-%m-%d"
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix =
-format-prefix-foreground = ${colors.foreground-alt}
+format-prefix = ◷
+format-prefix-foreground = ${colors.foreground}
 format-underline = #0a6cf5
 
 label = %date% %time%
@@ -221,12 +202,12 @@ label = %date% %time%
 type = internal/pulseaudio
 
 format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
+label-volume = vol %percentage%%
 label-volume-foreground = ${root.foreground}
 
 format-muted = <label-muted> <bar-volume>
-label-muted = muted
-label-muted-foreground = #666
+label-muted = "muted "
+label-muted-foreground = #aaa
 
 bar-volume-width = 10
 bar-volume-foreground-0 = #55aa55
@@ -301,7 +282,7 @@ expand-right = true
 
 format-spacing = 1
 
-label-open = ◉
+label-open = ◉ 
 label-open-foreground = ${colors.secondary}
 label-close = ⊖ cancel
 label-close-foreground = ${colors.secondary}
@@ -322,17 +303,5 @@ menu-2-0 = power off
 menu-2-0-exec = poweroff
 menu-2-1 = cancel
 menu-2-1-exec = #powermenu.open.0
-
-[settings]
-screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
-;pseudo-transparency = false
-
-[global/wm]
-margin-top = 2
-margin-bottom = 5
 
 ; vim:ft=dosini
