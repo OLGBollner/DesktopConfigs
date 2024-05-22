@@ -1,13 +1,13 @@
-#! /bin/sh
+#!/bin/sh
 
 xsetroot -cursor_name left_ptr
 
 # AutoStart
 pgrep -x sxhkd > /dev/null || sxhkd &
 pgrep -x picom > /dev/null || picom &
-$HOME/.config/polybar/launch.sh
+$HOME/.config/polybar/scripts/launch.sh
 
-feh --bg-fill /home/oskar/Pictures/Wallpaper.jpg
+feh --bg-fill /home/oskar/Pictures/wallpapers/Mountain_Wallpaper.jpg
 
 # Configs
 if type "xrandr"; then

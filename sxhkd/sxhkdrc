@@ -11,7 +11,7 @@ super+b
 
 # Reload configs
 super+R
-	pkill -USR1 -x sxhkd && bspc wm -r && pkill -USR1 -x picom && polybar -r
+	pkill -USR1 -x sxhkd && bspc wm -r && pkill -USR1 -x picom
 
 # alternate between tiled and monocle
 super+m
