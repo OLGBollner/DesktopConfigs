@@ -265,7 +265,8 @@ format-discharging = <animation-discharging> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
 format-full-prefix = 󰁹
-format-full-prefix-foreground = ${colors.foreground-alt}
+format-full = <label-full>
+format-full-prefix-foreground = ${colors.foreground}
 format-full-underline = ${self.format-charging-underline}
 
 animation-charging-0 = %{F#00FF2A}󰁺%{F-}
@@ -287,6 +288,7 @@ animation-discharging-framerate = 750
 
 label-charging = %percentage% %
 label-discharging = %percentage% % 
+label-full = %percentage% %
 
 [module/temperature]
 type = internal/temperature
