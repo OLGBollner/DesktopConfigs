@@ -1,10 +1,12 @@
+* 
 
-!autostart/*
-!bspwm/*
-!conky/*
-!polybar/*
-!rofi/*
-!neofetch/*
-!sxhkd/*
+!autostart/**
+!bspwm/**
+!conky/**
+!polybar/**
+!rofi/**
+!neofetch/**
+!sxhkd/**
 !picom.conf
-*
+!.vimrc
+!.vim/**
