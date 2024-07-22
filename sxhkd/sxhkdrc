@@ -7,7 +7,7 @@ super+r
 	rofi -show drun
 
 super+b
-	firefox
+	microsoft-edge
 
 # Reload configs
 super+R
@@ -23,7 +23,6 @@ super + w
 
 # print screen
 Print
-    sleep 0.2; \
     scrot -s $HOME/'Pictures/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'; \
     notify-send --urgency=low --hint=string:x-dunst-stack-tag:scrot 'Screenshot taken' 'Selection'
 
@@ -62,13 +61,18 @@ super + Escape
 		do bspc node "$wid" -g hidden
 	done
 
-# move node to new screen
+# move node to new screen 
 super + shift + {Left,Down,Up,Right}
 	dir={west,south,north,east}; \
 	bspc node -s "$dir.local" --follow \
-	    || bspc node -m "$dir" --follow
+	bspc node -m "$dir" --follow
+
+# move node to next workspace
+super + alt + {Left,Right}
+	dir={prev,next}; \
+	bspc node -d "$dir.local" --follow
 
 # swap to next workspace
 super + {_,shift} + Tab
     dir={next,prev}; \
-    bspc desktop -f "$dir".local
+    bspc desktop -f "$dir.local"

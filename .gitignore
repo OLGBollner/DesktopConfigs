@@ -1,4 +1,4 @@
-* 
+
 !autostart/*
 !bspwm/*
 !conky/*
@@ -7,3 +7,4 @@
 !neofetch/*
 !sxhkd/*
 !picom.conf
+*
