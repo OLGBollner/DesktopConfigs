@@ -10,3 +10,4 @@
 !picom.conf
 !.vimrc
 !.vim/**
+!nvim/**
