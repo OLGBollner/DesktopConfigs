@@ -56,3 +56,5 @@ vim.cmd("set history=1000")
 
 --Navigation short commands.
 vim.keymap.set('n', '<leader>v', ':vertical split<CR>')
+
+vim.keymap.set('n', '<leader>ff', ':%s/')
