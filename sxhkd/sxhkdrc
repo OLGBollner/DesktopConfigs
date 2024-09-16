@@ -13,6 +13,9 @@ super+b
 super+R
 	pkill -USR1 -x sxhkd && bspc wm -r && pkill -USR1 -x picom
 
+super+t
+    thunderbird
+
 # alternate between tiled and monocle
 super+m
 	bspc desktop -l next

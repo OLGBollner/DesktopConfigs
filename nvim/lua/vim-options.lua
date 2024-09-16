@@ -43,7 +43,7 @@ vim.cmd("set smartcase")
 vim.cmd("set showcmd")
 
 --Show the mode you are on the last line.
-vim.cmd("set showmode")
+--vim.cmd("set showmode")
 
 --Show matching words during a search.
 vim.cmd("set showmatch")
@@ -54,3 +54,5 @@ vim.cmd("set hlsearch")
 --Set the commands to save in history default number is 20.
 vim.cmd("set history=1000")
 
+--Navigation short commands.
+vim.keymap.set('n', '<leader>v', ':vertical split<CR>')
