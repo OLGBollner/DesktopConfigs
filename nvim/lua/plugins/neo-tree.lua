@@ -13,6 +13,7 @@ return {
         "MunifTanjim/nui.nvim",
         },
         config = function()
-          vim.keymap.set('n', '<leader>n', ':Neotree filesystem reveal left<CR>')
+            vim.keymap.set('n', '<leader>n', ':Neotree filesystem reveal left<CR>')
+            vim.keymap.set('n', '<leader>vn', ':vertical split <CR> <C-w>l :Neotree filesystem reveal left<CR>')
         end
     }

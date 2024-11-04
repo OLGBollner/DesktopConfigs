@@ -1,23 +1,24 @@
+# Useful commands
+#  - nmcli dev wifi list
+
+
 # Open Terminal
-super+Return
+super + Return
 	xfce4-terminal
 
 # Program launcher
-super+r
+super + r
 	rofi -show drun
 
-super+b
+super + b
 	microsoft-edge
 
 # Reload configs
-super+R
+super + R
 	pkill -USR1 -x sxhkd && bspc wm -r && pkill -USR1 -x picom
 
-super+t
-    thunderbird
-
 # alternate between tiled and monocle
-super+m
+super + m
 	bspc desktop -l next
 
 # close
@@ -25,9 +26,9 @@ super + w
 	bspc node -c
 
 # print screen
-Print
-    scrot -s $HOME/'Pictures/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'; \
-    notify-send --urgency=low --hint=string:x-dunst-stack-tag:scrot 'Screenshot taken' 'Selection'
+#Print
+#    scrot -s $HOME/'Pictures/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'; \
+#    notify-send --urgency=low --hint=string:x-dunst-stack-tag:scrot 'Screenshot taken' 'Selection'
 
 # set window state
 super + {t,shift + t,s}
@@ -79,3 +80,28 @@ super + alt + {Left,Right}
 super + {_,shift} + Tab
     dir={next,prev}; \
     bspc desktop -f "$dir.local"
+
+# ---------------  Volume controll  --------------- #
+
+# Raise volume
+XF86AudioRaiseVolume
+  pactl set-sink-volume @DEFAULT_SINK@ +5%
+ 
+# Lover volume
+XF86AudioLowerVolume
+  pactl set-sink-volume @DEFAULT_SINK@ -5%
+ 
+# Mute
+XF86AudioMute
+  pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+
+# ---------------  Brightness controll  --------------- #
+
+# Increase brightness
+XF86MonBrightnessUp
+  bright +10
+
+# Decrease brightness
+XF86MonBrightnessDown
+  bright -10

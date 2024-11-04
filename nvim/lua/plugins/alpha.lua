@@ -7,34 +7,29 @@ return {
 
     -- Set header
     dashboard.section.header.val = {
-            
+      "                                                  ",
+      "                                                  ",
+      "                                                  ",
+      "                                                  ",
+      "                                                  ",
+      "                                                  ",
+      "                                                  ",
+      "                                                  ",
       "                 |    |    |                      ",
       "                )_)  )_)  )_)                     ",
       "               )___))___))___)\\                  ",
       "              )____)____)_____)\\\\               ",
       "            _____|____|____|____\\\\\\__          ",
-      "   ---------\\                       /---------   ",
-      "     ^^^^^  ^^^^^^^^^^^^^^^^^^^^^                 ",
+      "   --^-----\\                          /-----^-^- ",
+      "     ^^^^^       ^^^^^^^^^^^^^^^^^^^^^            ",
       "       ^^^^      ^^^^     ^^^    ^^               ",
       "             ^^^^      ^^^                        ",
-      "                                                  ",
-      "       ████╗  ███╗   ██╗███╗   ██╗  ████╗         ",
-      "      ██╔═██╗ ████╗  ██║████╗  ██║ ██╔═██╗        ",
-      "     ██╔╝  ██╗██╔██╗ ██║██╔██╗ ██║██╔╝  ██╗       ",
-      "     ████████║██║╚██╗██║██║╚██╗██║████████║       ",
-      "     ██║   ██║██║ ╚████║██║ ╚████║██║   ██║       ",
-      "     ╚═╝   ╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝╚═╝   ╚═╝       ",
-      "                                                  ",
+      "                                                  "
     }
 
     -- Set menu
     dashboard.section.buttons.val = {
-      dashboard.button("e", "  > New File", "<cmd>ene<CR>"),
-      dashboard.button("SPC n", "  > Toggle file explorer", "<cmd>Neotree filesystem reveal left<CR>"),
-      dashboard.button("CTRL p", "󰱼  > Find File", "<cmd>Telescope find_files<CR>"),
-      dashboard.button("SPC fg", "  > Find Word", "<cmd>Telescope live_grep<CR>"),
-      dashboard.button("SPC wr", "󰁯  > Restore Session For Current Directory", "<cmd>SessionRestore<CR>"),
-      dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),
+      dashboard.button("q", "󱫯", "<cmd>qa<CR>"),
     }
 
     -- Send config to alpha
