@@ -96,12 +96,12 @@ font-0 = "Ubuntu Mono:size=16"
 font-1 = "Symbols Nerd Font Mono:size=10"
 
 width = 5%
-height = 40
-radius = 10.0
+height = 30
+radius = 2.0
 fixed-center = true
 cursor-click = pointer
 border-size = 0.2%
-offset-x = 1%
+offset-x = 0%
 offset-y = 20
 line-size = 3
 line-color = #f00
