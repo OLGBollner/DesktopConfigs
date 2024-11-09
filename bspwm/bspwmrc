@@ -2,45 +2,57 @@
 
 xsetroot -cursor_name left_ptr
 
+monitorAdd() {
+    for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do        
+        OPTIONS=$(xrandr --query | grep $m | cut -d" " -f1,3,4 | cut -d"+" -f1)
+        echo "MONITOR: " $(xrandr --query | grep $m)
+        RES=$(xrandr -q | grep -A 1 $m | awk 'NR==2 {print $1}')
+        echo "RES: "$RES
+        if [ "$(xrandr -q | grep $m | grep primary | cut -d" " -f3)" = "primary" ]; then
+            echo ">>>PRIMARY<<<"
+            xrandr --output $m --primary --mode $RES --rotate normal
+        else
+            xrandr --output $m --auto --left-of $(xrandr -q | grep primary | cut -d" " -f1) --mode $RES --rotate normal
+        fi
+        bspc monitor $m -d V VI VII VIII
+    done
+}
+
+monitorRemove() {
+    PRIMARY=$(xrandr -q | grep primary | cut -d" " -f1)    
+
+    if [ $(bspc query -M | wc -l) -eq 1 ]; then
+        bspc monitor $PRIMARY -d V VI VII VIII
+        return 0
+    else
+        for m in $(xrandr --query | grep " disconnected" | cut -d" " -f1); do
+            for d in $(bspc query -D -m $m); do
+                for n in $(bspc query -N -d $d); do
+                    bspc node $n --kill
+                done
+                bspc desktop $d --remove
+            done
+            bspc monitor $m --remove
+            xrandr --output $m --off
+        done
+
+        RES=$(xrandr -q | grep -A 1 $PRIMARY | awk 'NR==2 {print $1}')
+        xrandr --output $PRIMARY --primary --mode $RES --rotate normal
+    fi
+}
+
+if [ $(xrandr --query | grep " connected" | cut -d" " -f1 | wc -l) -eq 1 ]; then
+    monitorRemove
+else
+    monitorAdd
+fi
+
 # AutoStart
 pgrep -x sxhkd > /dev/null || sxhkd &
 pgrep -x picom > /dev/null || picom &
 $HOME/.config/polybar/scripts/launch.sh
 
 feh --bg-fill /home/oskar/Pictures/wallpapers/Mountain_Wallpaper.jpg
-
-# Configs
-if type "xrandr"; then
-    for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do        
-        OPTIONS=$(xrandr --query | grep $m | cut -d" " -f1,3,4 | cut -d"+" -f1)
-        RESP=$( echo ${OPTIONS} | cut -d" " -f3)
-        RES=$( echo ${OPTIONS} | cut -d" " -f2)
-        if [ "$RES" = "primary" ]; then
-            xrandr --output $m --primary --mode $RESP --rotate normal
-        else
-            xrandr --output $m --mode $RES --rotate normal
-        fi
-        bspc monitor $m -d V VI VII VIII
-    done
-#else
-#    echo "\ndet funkar inte\n"
-#    xrandr --output HDMI-2 --off
-#    while bspc node @V: --kill; do
-#        :
-#    done
-#    while bspc node @VI: --kill; do
-#        :
-#    done
-#    while bspc node @VII: --kill; do
-#        :
-#    done
-#    while bspc node @VIII: --kill; do
-#        :
-#    done
-#
-#    bspc desktop -r V VI VII VIII
-#    bspc monitor HDMI-2 -r
-fi
 
 bspc config border_width         0
 bspc config window_gap           6
