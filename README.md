@@ -1,2 +1,2 @@
-##Install nvim with:##
+**Install nvim with:**
 sudo snap install --edge nvim --classic
