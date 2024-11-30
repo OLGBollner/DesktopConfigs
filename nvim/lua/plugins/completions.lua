@@ -11,15 +11,19 @@ return {
     },
     {
         "hrsh7th/nvim-cmp",
+        dependencies = {
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+        },
         config = function()
             local cmp = require('cmp')
-            require("luasnip.loaders.from_vscode").lazy_load()
+            --require("luasnip.loaders.from_vscode").lazy_load()
 
             cmp.setup({
                 snippet = {
                     -- REQUIRED - you must specify a snippet engine
                     expand = function(args)
-                        require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                        --require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
                     end,
                 },
                 window = {
@@ -31,14 +35,14 @@ return {
                     ['<C-f>'] = cmp.mapping.scroll_docs(4),
                     ['<C-Space>'] = cmp.mapping.complete(),
                     ['<C-e>'] = cmp.mapping.abort(),
-                    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+                    ['<TAB>'] = cmp.mapping.confirm({ select = true }),
                 }),
                 sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
-                    { name = 'luasnip' }, -- For luasnip users.
+                    { name = 'buffer' },
+                    --{ name = 'nvim_lsp' },
                 }, {
-                        { name = 'buffer' },
-                    })
+                    { name = 'path' },
+                })
             })
         end
     }
