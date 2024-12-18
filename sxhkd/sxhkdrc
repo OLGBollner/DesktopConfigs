@@ -86,12 +86,8 @@ super + {_,shift} + Tab
 # ---------------  Volume controll  --------------- #
 
 # Raise volume
-XF86AudioRaiseVolume
-  pactl set-sink-volume @DEFAULT_SINK@ +5%
- 
-# Lover volume
-XF86AudioLowerVolume
-  pactl set-sink-volume @DEFAULT_SINK@ -5%
+XF86Audio{Raise,Lower}Volume
+  pactl set-sink-volume @DEFAULT_SINK@ {+,-}5%
  
 # Mute
 XF86AudioMute
@@ -101,9 +97,6 @@ XF86AudioMute
 # ---------------  Brightness controll  --------------- #
 
 # Increase brightness
-XF86MonBrightnessUp
-  bright +10
-
-# Decrease brightness
-XF86MonBrightnessDown
-  bright -10
+XF86MonBrightness{Up,Down}
+    brightnessctl s 10{+,-}%
+    

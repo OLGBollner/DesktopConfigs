@@ -1,4 +1,5 @@
 
+vim.g.maplocalleader = ","
 vim.g.mapleader = " "
 
 --Add Row numbers
