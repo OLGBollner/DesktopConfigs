@@ -78,6 +78,10 @@ super + alt + {Left,Right}
 	dir={prev,next}; \
 	bspc node -d "$dir.local" --follow
 
+super + alt + shift + {Left,Right}
+	dir={prev,next}; \
+	bspc node -d "$dir.local"
+
 # swap to next workspace
 super + {_,shift} + Tab
     dir={next,prev}; \

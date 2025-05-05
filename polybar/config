@@ -49,11 +49,11 @@ monitor = ${env:MONITOR:}
 width = 100%
 height = 20
 override-redirect = false
-radius = 0.0
+radius = 5.0
 fixed-center = true
 cursor-click = pointer
 cursor-scroll = ns-resize
-border-size = 0%
+border-size = 0.4%
 
 wm-restack = bspwm
 line-size = 2
