@@ -11,6 +11,7 @@ vim.cmd("set cursorline")
 --Highlight cursor line underneath the cursor vertically.
 vim.cmd("set cursorcolumn")
 
+
 --Set shift width to 4 spaces.
 vim.cmd("set shiftwidth=4")
 
@@ -61,3 +62,5 @@ vim.keymap.set('n', '<leader>vv', ':vertical split<CR>')
 vim.keymap.set('n', '<leader>ff', ':%s/')
 
 vim.keymap.set('n', '<leader>df', ':vert diffs ')
+
+vim.keymap.set('n', '<leader>T', ':tabnew<CR>')

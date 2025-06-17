@@ -13,7 +13,7 @@ return {
         },
         config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "clangd", "texlab", "pyright"}
+        ensure_installed = { "lua_ls", "clangd", "texlab", "pyright", "ts_ls", "jsonls", "html"}
       })
     end
   },
@@ -35,6 +35,15 @@ return {
             capabilities = capabilities
             })]]
             lspconfig.texlab.setup({
+                capabilities = capabilities
+            })
+            lspconfig.ts_ls.setup({
+                capabilities = capabilities
+            })
+            lspconfig.jsonls.setup({
+                capabilities = capabilities
+            })
+            lspconfig.html.setup({
                 capabilities = capabilities
             })
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
