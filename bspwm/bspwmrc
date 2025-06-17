@@ -14,7 +14,7 @@ monitorAdd() {
         else
             xrandr --output $m --auto --left-of $(xrandr -q | grep primary | cut -d" " -f1) --mode $RES --rotate normal
         fi
-        bspc monitor $m -d V VI VII VIII
+        bspc monitor $m -d I II III IV
     done
 }
 
@@ -22,7 +22,7 @@ monitorRemove() {
     PRIMARY=$(xrandr -q | grep primary | cut -d" " -f1)    
 
     if [ $(bspc query -M | wc -l) -eq 1 ]; then
-        bspc monitor $PRIMARY -d V VI VII VIII
+        bspc monitor $PRIMARY -d I II III IV
         return 0
     else
         for m in $(xrandr --query | grep " disconnected" | cut -d" " -f1); do

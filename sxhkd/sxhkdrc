@@ -73,7 +73,7 @@ super + shift + {Left,Down,Up,Right}
 	dir={west,south,north,east}; \
 	bspc node -m "$dir" --follow
 
-# move node to next workspace
+# move node to next dektop
 super + alt + {Left,Right}
 	dir={prev,next}; \
 	bspc node -d "$dir.local" --follow
@@ -82,10 +82,14 @@ super + alt + shift + {Left,Right}
 	dir={prev,next}; \
 	bspc node -d "$dir.local"
 
-# swap to next workspace
-super + {_,shift} + Tab
+# swap to next dektop
+super + {_,shift + } Tab
     dir={next,prev}; \
     bspc desktop -f "$dir.local"
+
+# focus or send to the given desktop
+super + {_,shift + }{1-4}
+    bspc {desktop -f,node -d} '{I,II,III,IV}'
 
 # ---------------  Volume controll  --------------- #
 
