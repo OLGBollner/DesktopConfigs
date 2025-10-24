@@ -2,6 +2,8 @@
 vim.g.maplocalleader = ","
 vim.g.mapleader = " "
 
+vim.cmd("set clipboard+=unnamedplus")
+
 --Add Row numbers
 vim.cmd("set number")
 
@@ -63,4 +65,6 @@ vim.keymap.set('n', '<leader>ff', ':%s/')
 
 vim.keymap.set('n', '<leader>df', ':vert diffs ')
 
-vim.keymap.set('n', '<leader>T', ':tabnew<CR>')
+vim.keymap.set('n', '<leader>T', ":tabnew <CR>")
+
+vim.keymap.set('n', '<C-c>', ':Colortils<cr>')

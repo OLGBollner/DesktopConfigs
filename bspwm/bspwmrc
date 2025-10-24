@@ -1,73 +1,39 @@
 #!/bin/sh
 
+# Basic X settings
 xsetroot -cursor_name left_ptr
 
-monitorAdd() {
-    for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do        
-        OPTIONS=$(xrandr --query | grep $m | cut -d" " -f1,3,4 | cut -d"+" -f1)
-        echo "MONITOR: " $(xrandr --query | grep $m)
-        RES=$(xrandr -q | grep -A 1 $m | awk 'NR==2 {print $1}')
-        echo "RES: "$RES
-        if [ "$(xrandr -q | grep $m | grep primary | cut -d" " -f3)" = "primary" ]; then
-            echo ">>>PRIMARY<<<"
-            xrandr --output $m --primary --mode $RES --rotate normal
-        else
-            xrandr --output $m --auto --left-of $(xrandr -q | grep primary | cut -d" " -f1) --mode $RES --rotate normal
-        fi
-        bspc monitor $m -d I II III IV
-    done
-}
-
-monitorRemove() {
-    PRIMARY=$(xrandr -q | grep primary | cut -d" " -f1)    
-
-    if [ $(bspc query -M | wc -l) -eq 1 ]; then
-        bspc monitor $PRIMARY -d I II III IV
-        return 0
-    else
-        for m in $(xrandr --query | grep " disconnected" | cut -d" " -f1); do
-            for d in $(bspc query -D -m $m); do
-                for n in $(bspc query -N -d $d); do
-                    bspc node $n --kill
-                done
-                bspc desktop $d --remove
-            done
-            bspc monitor $m --remove
-            xrandr --output $m --off
-        done
-
-        RES=$(xrandr -q | grep -A 1 $PRIMARY | awk 'NR==2 {print $1}')
-        xrandr --output $PRIMARY --primary --mode $RES --rotate normal
-    fi
-}
-
-if [ $(xrandr --query | grep " connected" | cut -d" " -f1 | wc -l) -eq 1 ]; then
-    monitorRemove
-else
-    monitorAdd
-fi
-
-# AutoStart
+# Auto-start applications (only if not already running)
 pgrep -x sxhkd > /dev/null || sxhkd &
 pgrep -x picom > /dev/null || picom &
-$HOME/.config/polybar/scripts/launch.sh
 
-feh --bg-fill /home/oskar/Pictures/wallpapers/Mountain_Wallpaper.jpg
+# Launch polybar (will be handled by monitor scripts now)
+#$HOME/.config/polybar/scripts/launch.sh
 
+# Set background
+#feh --bg-fill /home/oskar/Pictures/wallpapers/Mountain_Wallpaper.jpg
+
+# BSPWM configuration
 bspc config border_width         0
 bspc config window_gap           6
-
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
-
 bspc config focus_follows_pointer true
 bspc config pointer_modifier mod1
 bspc config automatic_scheme spiral
 
+# Window rules
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
+# Initial monitor setup - only run once on startup
+
+if [ $(xrandr --query | grep " connected" | cut -d" " -f1 | wc -l) -eq 1 ]; then
+    ~/.config/bspwm/monitor-remove.sh
+else
+    ~/.config/bspwm/monitor-add.sh
+fi

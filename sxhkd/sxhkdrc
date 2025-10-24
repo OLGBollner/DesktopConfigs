@@ -89,7 +89,7 @@ super + {_,shift + } Tab
 
 # focus or send to the given desktop
 super + {_,shift + }{1-4}
-    bspc {desktop -f,node -d} '{I,II,III,IV}'
+    bspc {desktop -f, node -d} "$(bspc query -D -m | sed -n {1-4}p)"
 
 # ---------------  Volume controll  --------------- #
 
