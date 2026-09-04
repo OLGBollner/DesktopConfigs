@@ -30,10 +30,5 @@ bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
-# Initial monitor setup - only run once on startup
-
-if [ $(xrandr --query | grep " connected" | cut -d" " -f1 | wc -l) -eq 1 ]; then
-    ~/.config/bspwm/monitor-remove.sh
-else
-    ~/.config/bspwm/monitor-add.sh
-fi
+# Monitor setup
+~/.config/bspwm/setup_monitors.sh
