@@ -4,7 +4,7 @@
 
 # Open Terminal
 super + Return
-	xfce4-terminal
+	kitty
 
 # Program launcher
 super + r
