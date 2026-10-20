@@ -1,6 +1,9 @@
 # Useful commands
 #  - nmcli dev wifi list
 
+# Log out
+super + L
+    (sleep 1 && systemctl suspend) # & bspc quit
 
 # Open Terminal
 super + Return
